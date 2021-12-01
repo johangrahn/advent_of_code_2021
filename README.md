@@ -1,1 +1,2 @@
-# advent_of_code_2021
+# My contribution of Advent Of Code 2021
+
