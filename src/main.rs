@@ -1,56 +1,75 @@
-use std::fs::File;
 use std::io::{self, BufRead};
+use std::{error::Error, fs::File};
 
-fn main() {
-    //let input = vec![199, 200, 208, 210, 200, 207, 240, 269, 260, 263];
+#[derive(Debug)]
+struct Position {
+    num: usize,
+    marked: bool,
+}
 
-    let input = io::BufReader::new(File::open("src/input.txt").unwrap())
+fn main() -> Result<(), Box<dyn Error>> {
+    let day = std::env::args()
+        .nth(1)
+        .expect("No date is given")
+        .parse::<usize>()?;
+
+    let day_input: Vec<String> = io::BufReader::new(File::open(format!("input/{}.txt", day))?)
         .lines()
         .into_iter()
-        .filter_map(|x| x.ok())
-        .filter_map(|s| s.parse::<i32>().ok());
+        .filter_map(|line| line.ok())
+        .collect();
 
-    let something: i64 = part2(input.collect());
-    //let something = part2(input);
-
-    println!("Sum: {}", something)
+    println!("{:?}", day_input);
+    Ok(())
 }
 
-fn part1(input: Vec<i32>) -> i64 {
-    let mut prev_value = 0;
-    input
-        .into_iter()
-        .map(|x| {
-            let mut found = 0;
-            if prev_value == 0 {
-                prev_value = x;
-            };
+// let day_input: Vec<String> = io::BufReader::new(File::open("src/input.txt").unwrap())
+//     .lines()
+//     .into_iter()
+//     .filter_map(|line| line.ok())
+//     .collect();
 
-            if x > prev_value {
-                found = 1;
-            }
+// let numbers: Vec<usize> = day_input[0]
+//     .split('\n')
+//     .map(|s| s.parse::<usize>())
+//     .filter_map(|l| l.ok())
+//     .collect();
 
-            prev_value = x;
-            found
-        })
-        .sum()
-}
+// let mut boards: Vec<Vec<Vec<Position>>> = day_input[2..]
+//     .windows(6)
+//     .map(|window| {
+//         window
+//             .iter()
+//             .map(|row| {
+//                 row.split(" ")
+//                     .map(|s| s.parse::<usize>())
+//                     .filter_map(|l| l.ok())
+//                     .map(|n| Position {
+//                         num: n,
+//                         marked: false,
+//                     })
+//                     .collect::<Vec<Position>>()
+//             })
+//             .filter(|l| !l.is_empty())
+//             .collect::<Vec<Vec<Position>>>()
+//     })
+//     .collect();
 
-fn part2(input: Vec<i32>) -> i64 {
-    let mut prev_value = 0;
-    let s: i64 = input[..]
-        .windows(3)
-        .map(|w| {
-            let mut bigger = 0;
-            let result = w.into_iter().sum();
-            if prev_value != 0 {
-                if result > prev_value {
-                    bigger = 1;
-                }
-            }
-            prev_value = result;
-            bigger
-        })
-        .sum::<i64>();
-    s
-}
+// for num in numbers {
+//     for board in boards.iter_mut() {
+//         let mut found = false;
+
+//         board.iter_mut().for_each(|row| {
+//             row.iter_mut().for_each(|column| {
+//                 if column.num == num {
+//                     column.marked = true;
+//                     found = true;
+//                 }
+//             })
+//         });
+
+//         if found == true {}
+//     }
+// }
+
+// println!("{:?}", boards);
