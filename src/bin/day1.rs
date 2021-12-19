@@ -45,7 +45,7 @@ fn part2(input: Vec<String>) -> u64 {
 }
 
 #[cfg(test)]
-mod day1 {
+mod day1_tests {
     mod part1 {
         use crate::part1;
         #[test]
