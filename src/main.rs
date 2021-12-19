@@ -3,8 +3,8 @@ use std::{error::Error, fs::File};
 
 #[derive(Debug)]
 struct Position {
-    num: usize,
-    marked: bool,
+    // num: usize,
+// marked: bool,
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
