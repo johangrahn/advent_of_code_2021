@@ -15,7 +15,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let day_input: Vec<String> = io::BufReader::new(File::open(format!("input/{}.txt", day))?)
         .lines()
-        .into_iter()
+        //.into_iter()
         .filter_map(|line| line.ok())
         .collect();
 
